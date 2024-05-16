@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import StatusComponent from './StatusComponent';
+import { postGameState } from '../modules/postGameState';
 import Chessboard from 'chessboardjsx';
 import { Chess }from 'chess.js';
 import '../styles/ChessboardComponent.css'
@@ -27,6 +28,8 @@ const ChessboardComponent = () => {
       setFen(chess.fen());
 
       setHistory(chess.history({verbose: true}));
+
+      postGameState(chess);
     } catch(e) {
       setFen(prevFen)
     }
