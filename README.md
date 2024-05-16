@@ -12,7 +12,7 @@ A React+JS frontend that also runs the game of chess. Frontend sends the game st
 - Go
 
 ## Run Locally
-### Front End
+### Frontend
 1. `npm i`
 2. `npm run dev`
 ### Go Backend
