@@ -61,6 +61,7 @@ const ChessboardComponent = () => {
 
     setSquareStyles(highlightStyles);
   };
+  
 
   return (
     <>
