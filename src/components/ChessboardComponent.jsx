@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import StatusComponent from './StatusComponent';
 import Chessboard from 'chessboardjsx';
 import { Chess }from 'chess.js';
+import '../styles/ChessboardComponent.css'
 
 const ChessboardComponent = () => {
   const [chess] = useState(new Chess());
@@ -64,7 +65,7 @@ const ChessboardComponent = () => {
   
 
   return (
-    <>
+    <div className='game-container'>
       <div>
         <Chessboard 
           draggable={true}
@@ -88,10 +89,7 @@ const ChessboardComponent = () => {
           }}
         />
       </div>
-    </>
-    
-
-      
+    </div>
   );
 };
 
