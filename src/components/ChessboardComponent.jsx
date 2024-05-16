@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import StatusComponent from './StatusComponent';
 import Chessboard from 'chessboardjsx';
 import { Chess }from 'chess.js';
 
 const ChessboardComponent = () => {
   const [chess] = useState(new Chess());
+  const [history, setHistory] = useState(chess.history({verbose: true}));
   const [fen, setFen] = useState('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
   const [prevFen, setPrevFen] = useState('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
   const [squareStyles, setSquareStyles] = useState({});
@@ -22,6 +24,8 @@ const ChessboardComponent = () => {
 
       setPrevFen(fen)
       setFen(chess.fen());
+
+      setHistory(chess.history({verbose: true}));
     } catch(e) {
       setFen(prevFen)
     }
@@ -59,15 +63,34 @@ const ChessboardComponent = () => {
   };
 
   return (
-    <div>
-      <Chessboard 
-        draggable={true}
-        onDrop={(move) => handleMove(move)}
-        position={fen} // initial position in FEN
-        onMouseOverSquare={(square) => highlightSquare(square)}
-        squareStyles={squareStyles}
-      />
-    </div>
+    <>
+      <div>
+        <Chessboard 
+          draggable={true}
+          onDrop={(move) => handleMove(move)}
+          position={fen} // initial position in FEN
+          onMouseOverSquare={(square) => highlightSquare(square)}
+          squareStyles={squareStyles}
+        />
+      </div>
+      <div>
+        <StatusComponent 
+          history={history}
+          turn={chess.turn()}
+          gameState={{
+            'isCheckmate': chess.isCheckmate(),
+            'isDraw': chess.isDraw(),
+            'isInsufficientMaterial': chess.isInsufficientMaterial(),
+            'isStalemate': chess.isStalemate(),
+            'isThreefoldRepetition': chess.isThreefoldRepetition(),
+            'isGameOver': chess.isGameOver()
+          }}
+        />
+      </div>
+    </>
+    
+
+      
   );
 };
 
